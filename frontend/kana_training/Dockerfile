@@ -1,24 +1,22 @@
-# Use an official Node.js image as the base image
-FROM node:latest
+# 使用 Node 的官方映像
+FROM node:14
 
-# Create a new directory for the app
+# 設定工作目錄
 WORKDIR /app
 
-# Copy the package.json and install dependencies
+# 複製 package.json 和 package-lock.json 並安裝依賴
 COPY package*.json ./
+
 RUN npm install
 
-# 安裝 serve
-RUN npm install -g serve
-
-# Copy the rest of the source code into the container
+# 複製應用的所有文件
 COPY . .
 
-# Build the application
+# 編譯應用
 RUN npm run build
 
-# Expose the port that the app will use
+# 暴露應用運行的端口
 EXPOSE 3000
 
-# Set the startup command to serve the built application
-CMD ["npx", "serve", "-s", "build"]
+# 設定啟動命令
+CMD ["npm", "start"]
