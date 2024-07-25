@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const KanaPage = () => {
@@ -8,6 +8,7 @@ const KanaPage = () => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [errorInput, setErrorInput] = useState('');
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const hasFetched = useRef(false);
 
   const fetchKana = async () => {
     try {
@@ -24,8 +25,11 @@ const KanaPage = () => {
   };
 
   useEffect(() => {
-    fetchKana();
-  }, [apiBaseUrl]);
+    if (!hasFetched.current) {
+      fetchKana();
+      hasFetched.current = true;
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
