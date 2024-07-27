@@ -12,9 +12,6 @@ RUN npm install
 # 複製應用的所有文件
 COPY . .
 
-# 編譯應用
-# RUN npm run build
-
 # 暴露應用運行的端口
 EXPOSE 3000
 
