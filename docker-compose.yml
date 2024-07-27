@@ -16,8 +16,8 @@ services:
       context: ./frontend/kana_training
       dockerfile: Dockerfile
     container_name: jp_syllabaries_training_frontend
-    volumes:
-      - ./frontend/kana_training:/app
+    # volumes:
+    #   - ./frontend/kana_training:/app
     ports:
       - "3000:3000"
     environment:
