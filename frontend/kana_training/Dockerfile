@@ -7,7 +7,7 @@ WORKDIR /app
 # 複製 package.json 和 package-lock.json 並安裝依賴
 COPY package*.json ./
 
-RUN npm install --verbose
+RUN npm install
 
 # 複製應用的所有文件
 COPY . .
