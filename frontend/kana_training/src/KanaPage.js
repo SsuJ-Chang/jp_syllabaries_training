@@ -15,7 +15,7 @@ const KanaPage = () => {
 
   const fetchKana = async () => {
     try {
-      const response = await axios.get(`${apiBaseUrl}/hiragana/seion`);
+      const response = await axios.get(`${apiBaseUrl}/api/hiragana/seion`);
       const { kana, romaji } = response.data;
       setKana(kana);
       setRomaji(romaji);

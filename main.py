@@ -21,4 +21,4 @@ async def index():
 @app.get("/", include_in_schema=False)
 async def root_redirect():
     from fastapi.responses import RedirectResponse
-    return RedirectResponse(url="/hiragana/seion")
+    return RedirectResponse(url="/api/hiragana/seion")

@@ -6,7 +6,7 @@ import random
 
 router = APIRouter()
 
-@router.get("/hiragana/seion", response_model=Kana)
+@router.get("/api/hiragana/seion", response_model=Kana)
 async def get_hiragana_seion():
     collection = get_kana_collection()
     pipeline = [
