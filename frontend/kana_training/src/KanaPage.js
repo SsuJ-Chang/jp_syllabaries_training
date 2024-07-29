@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import './KanaPage.css';
 
-const KanaPage = () => {
+const KanaPage = ({ kanaType, category }) => {
   const [kana, setKana] = useState('');
   const [romaji, setRomaji] = useState('');
   const [inputValue, setInputValue] = useState('');
@@ -12,7 +13,11 @@ const KanaPage = () => {
 
   const fetchKana = async () => {
     try {
-      const response = await axios.get(`${apiBaseUrl}/api/hiragana/seion`);
+      const response = await axios.get(
+        kanaType === 'all_kanas' 
+          ? `${apiBaseUrl}/api/all_kanas` 
+          : `${apiBaseUrl}/api/${kanaType}/${category}`
+      );
       const { kana, romaji } = response.data;
       setKana(kana);
       setRomaji(romaji);
@@ -38,7 +43,7 @@ const KanaPage = () => {
       fetchKana();
       hasFetched.current = true;
     }
-  }, []);
+  }, [kanaType, category]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,26 +60,48 @@ const KanaPage = () => {
     fetchKana();
   };
 
+  const titles = {
+    hiragana: {
+      seion: '平假名 - 清音',
+      youon: '平假名 - 拗音',
+      dakuon_handaon: '平假名 - 濁音與半濁音',
+      all: '平假名 - 全部'
+    },
+    katakana: {
+      seion: '片假名 - 清音',
+      youon: '片假名 - 拗音',
+      dakuon_handaon: '片假名 - 濁音與半濁音',
+      all: '片假名 - 全部'
+    },
+    all_kanas: {
+      all: '全部 50 音'
+    }
+  };
+
+  const getTitle = () => {
+    return titles[kanaType] && titles[kanaType][category] ? titles[kanaType][category] : '50音練習';
+  };
+
   return (
     <div>
       <div id="kana-training-body">
-        <h1>JAPANESE SYLLABARIES TRAINING</h1>
-        <p id="kana">{kana ? `${kana}` : 'Loading...'}</p>
+        <h1>{getTitle()}</h1>
+        <p id="kana">{kana ? `${kana}` : '載入中...'}</p>
         {isCorrect === false && (
             <div>
-            <p id="error-msg">Incorrect! You entered "{errorInput}", correct answer is "{romaji}"</p>
+            <p id="error-msg">發音錯誤！你輸入「{errorInput}」，正確發音為「{romaji}」</p>
             </div>
         )}
         <form onSubmit={handleSubmit}>
             {isCorrect === false ? (
-            <button className="btn" type="button" onClick={handleContinue}>CONTINUE</button>
+            <button className="btn" type="button" onClick={handleContinue}>繼續練習</button>
             ) : (
             <input
                 type="text"
                 id="answer"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="ENTER ROMAJI"
+                placeholder="輸入羅馬拼音"
             />
             )}
         </form>

@@ -2,43 +2,44 @@
   text-align: center;
 }
 
-#kana-training-body {
+.home-page {
+  text-align: center;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #aaa;
+  color: white;
 }
 
-#kana {
-  color: #eee;
-  font-size: 100px;
-  font-weight: bold;
-  margin: 0px;
+.kana-options {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin-top: 20px;
 }
 
-.btn {
-  width: 120px;
-  height: 30px;
-  border-radius: 5px;
-  font-size: 18px;
+.kana-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.all-kana-section {
+  margin-top: 30px;
+}
+
+.option {
+  display: block;
   margin: 10px;
-}
-
-#answer {
-  width: 180px;
-  height: 30px;
+  padding: 10px;
+  background-color: #61dafb;
+  color: black;
+  text-decoration: none;
   border-radius: 5px;
-  font-size: 18px;
-  text-align: center;
-  margin: 20px;
 }
 
-#error-msg {
-  font-size: 36px;
-  font-style: italic;
-  color: #c71111;
+.option:hover {
+  background-color: #21a1f1;
 }
