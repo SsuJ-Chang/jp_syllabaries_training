@@ -8,9 +8,6 @@ const KanaPage = () => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [errorInput, setErrorInput] = useState('');
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-
-  console.log('API Base URL:', apiBaseUrl);
-
   const hasFetched = useRef(false);
 
   const fetchKana = async () => {
@@ -23,8 +20,6 @@ const KanaPage = () => {
       setIsCorrect(null);
       setErrorInput('');
     } catch (error) {
-      // console.error('Error fetching kana:', error);
-
       if (error.response) {
         console.error('Response data:', error.response.data);
         console.error('Response status:', error.response.status);
