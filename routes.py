@@ -45,17 +45,3 @@ async def get_all_kana(kana_type: str):
         return Kana(**result)
     else:
         raise HTTPException(status_code=404, detail="Kana not found")
-
-# @router.get("/api/hiragana/seion", response_model=Kana)
-# async def get_hiragana_seion():
-#     collection = get_kana_collection()
-#     pipeline = [
-#         {"$match": {"kana_type": "hiragana", "category": "seion"}},
-#         {"$sample": {"size": 1}}
-#     ]
-#     cursor = collection.aggregate(pipeline)
-#     result = next(cursor, None)
-#     if result:
-#         return Kana(**result)
-#     else:
-#         raise HTTPException(status_code=404, detail="Kana not found")
