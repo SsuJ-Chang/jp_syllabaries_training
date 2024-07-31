@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
-import HomePage from './HomePage';
-import KanaPage from './KanaPage';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import "./App.css";
+import HomePage from "./HomePage";
+import KanaPage from "./KanaPage";
 
 function App() {
   return (
