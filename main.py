@@ -17,8 +17,3 @@ app.include_router(router)
 @app.get("/")
 async def index():
     return {"message": "Welcome to the Japanese Syllabaries Training"}
-
-# @app.get("/", include_in_schema=False)
-# async def root_redirect():
-#     from fastapi.responses import RedirectResponse
-#     return RedirectResponse(url="/api/hiragana/seion")
