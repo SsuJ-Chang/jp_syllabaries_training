@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import "./HomePage.css";
+import Cookies from 'js-cookie';
 
 const HomePage = () => {
   const [visitRecord, setVisitRecord] = useState(0);
@@ -10,8 +11,18 @@ const HomePage = () => {
   useEffect(() => {
     const fetchVisitRecord = async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/visit_records/home`);
-        setVisitRecord(response.data.home);
+        const visitKey = `visited_home`;
+        const visited = Cookies.get(visitKey);
+
+        if (!visited) {
+          const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/visit_records/home`);
+          setVisitRecord(response.data.home);
+          // 設定 Cookie 1 小時內同一瀏覽器無法重複累積造訪次數
+          Cookies.set(visitKey, 'true', { expires: 1 / 24 });
+        } else {
+          const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/visit_records/home`);
+          setVisitRecord(response.data.home);
+        }
       } catch (error) {
         console.error("Error fetching visit record", error);
       }

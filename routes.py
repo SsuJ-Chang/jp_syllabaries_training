@@ -7,6 +7,27 @@ import random
 
 router = APIRouter()
 
+# 更新頁面造訪人次
+@router.post("/api/visit_records/{page_name}")
+async def update_visit_record(page_name: str):
+    collection = get_visit_records_collection()
+    record = collection.find_one_and_update({}, {"$inc": {page_name: 1}}, upsert=True, return_document=ReturnDocument.AFTER)
+    if record and page_name in record:
+        return {page_name: record[page_name]}
+    else:
+        raise HTTPException(status_code=404, detail="Visit record not found")
+
+# 取得頁面造訪人次
+@router.get("/api/visit_records/{page_name}")
+async def get_visit_record(page_name: str):
+    collection = get_visit_records_collection()
+    print(collection)
+    record = collection.find_one({}, {page_name: 1, "_id": 0})
+    if page_name in record:
+        return {page_name: record[page_name]}
+    else:
+        raise HTTPException(status_code=404, detail="Visit record not found")
+
 # 通用的函數來取得假名
 async def get_kana(kana_type: str, category: str):
     collection = get_kana_collection()
@@ -46,13 +67,3 @@ async def get_all_kana(kana_type: str):
         return Kana(**result)
     else:
         raise HTTPException(status_code=404, detail="Kana not found")
-
-# 更新頁面訪問次數
-@router.post("/api/visit_records/{page_name}")
-async def update_visit_record(page_name: str):
-    collection = get_visit_records_collection()
-    record = collection.find_one_and_update({}, {"$inc": {page_name: 1}}, upsert=True, return_document=ReturnDocument.AFTER)
-    if record and page_name in record:
-        return {page_name: record[page_name]}
-    else:
-        raise HTTPException(status_code=404, detail="Visit record not found")

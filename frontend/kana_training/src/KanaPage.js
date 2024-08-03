@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./KanaPage.css";
+import Cookies from 'js-cookie';
 
 const KanaPage = ({ kanaType, category }) => {
   const [kana, setKana] = useState("");
@@ -16,8 +17,18 @@ const KanaPage = ({ kanaType, category }) => {
     const pageName = `${kanaType}_${category}`;
     try {
       if (updateVisit) {
-        const visitResponse = await axios.post(`${apiBaseUrl}/api/visit_records/${pageName}`);
-        setVisitCount(visitResponse.data[pageName]);
+        const visitKey = `visited_${pageName}`;
+        const visited = Cookies.get(visitKey);
+
+        if (!visited) {
+          const visitResponse = await axios.post(`${apiBaseUrl}/api/visit_records/${pageName}`);
+          setVisitCount(visitResponse.data[pageName]);
+          // 設定 Cookie 1 小時內同一瀏覽器無法重複累積造訪次數
+          Cookies.set(visitKey, 'true', { expires: 1 / 24 });
+        } else {
+          const visitResponse = await axios.get(`${apiBaseUrl}/api/visit_records/${pageName}`);
+          setVisitCount(visitResponse.data[pageName]);
+        }
       }
 
       const kanaResponse = await axios.get(
