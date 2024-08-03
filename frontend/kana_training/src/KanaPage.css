@@ -1,41 +1,49 @@
 #kana-training-body {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: #aaa;
-  }
-  
-  #kana {
-    color: #eee;
-    font-size: 100px;
-    font-weight: bold;
-    margin: 0px;
-  }
-  
-  .btn {
-    width: 120px;
-    height: 30px;
-    border-radius: 5px;
-    font-size: 18px;
-    margin: 10px;
-  }
-  
-  #answer {
-    width: 180px;
-    height: 30px;
-    border-radius: 5px;
-    font-size: 18px;
-    text-align: center;
-    margin: 20px;
-  }
-  
-  #error-msg {
-    font-size: 36px;
-    font-style: italic;
-    color: #c71111;
-  }
-  
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #aaa;
+}
+
+#kana {
+  color: #eee;
+  font-size: 100px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.btn {
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin: 10px;
+}
+
+#answer {
+  width: 180px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  margin: 20px;
+}
+
+#error-msg {
+  font-size: 36px;
+  font-style: italic;
+  color: #c71111;
+}
+
+.visit-record-kana {
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+  font-size: 18px;
+  color: #61dafb;
+}
