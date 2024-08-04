@@ -109,14 +109,17 @@ const KanaPage = ({ kanaType, category }) => {
           {isCorrect === false ? (
             <button className="btn" type="button" onClick={handleContinue}>繼續練習</button>
           ) : (
-            <input
-              type="text"
-              id="answer"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="輸入羅馬拼音"
-              autocomplete="off"
-            />
+            <>
+              <input
+                type="text"
+                id="answer"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="輸入羅馬拼音"
+                autocomplete="off"
+              />
+              <div  className="submit-btn-container"><button className="btn submit-btn" type="submit">送出</button></div>
+            </>
           )}
         </form>
         <div className="visit-record-kana">
