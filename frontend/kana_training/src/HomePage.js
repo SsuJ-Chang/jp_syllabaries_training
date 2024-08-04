@@ -36,7 +36,6 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <h1>50 音練習</h1>
       <div className="kana-options">
         <div className="kana-section">
           <h2>平假名</h2>
