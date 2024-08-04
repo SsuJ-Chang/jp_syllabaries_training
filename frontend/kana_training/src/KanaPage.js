@@ -10,6 +10,7 @@ const KanaPage = ({ kanaType, category }) => {
   const [isCorrect, setIsCorrect] = useState(null);
   const [errorInput, setErrorInput] = useState("");
   const [visitCount, setVisitCount] = useState(0);
+  const [correctStreak, setCorrectStreak] = useState(0);
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const hasFetched = useRef(false);
 
@@ -58,9 +59,11 @@ const KanaPage = ({ kanaType, category }) => {
     event.preventDefault();
     if (inputValue.toLowerCase() === romaji.toLowerCase()) {
       setIsCorrect(true);
+      setCorrectStreak(correctStreak + 1);
       fetchKanaAndRecordVisit();
     } else {
       setIsCorrect(false);
+      setCorrectStreak(0);
       setErrorInput(inputValue);
     }
   };
@@ -95,7 +98,8 @@ const KanaPage = ({ kanaType, category }) => {
     <div>
       <div id="kana-training-body">
         <h1>{getTitle()}</h1>
-        <p id="kana">{kana ? `${kana}` : "載入中..."}</p>
+        <div>連續答對 {correctStreak} 次</div>
+        <div id="kana">{kana ? `${kana}` : "載入中..."}</div>
         {isCorrect === false && (
           <div>
             <p id="error-msg">發音錯誤！你輸入「{errorInput}」，正確發音為「{romaji}」</p>
@@ -111,6 +115,7 @@ const KanaPage = ({ kanaType, category }) => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="輸入羅馬拼音"
+              autocomplete="off"
             />
           )}
         </form>

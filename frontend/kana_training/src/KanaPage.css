@@ -33,6 +33,12 @@
   margin: 20px;
 }
 
+#answer:focus {
+  outline: none;
+  border-color: rgb(30, 180, 160);
+  box-shadow: 0 0 5px rgb(30, 180, 160);
+}
+
 #error-msg {
   font-size: 36px;
   font-style: italic;
@@ -45,5 +51,5 @@
   text-align: center;
   width: 100%;
   font-size: 18px;
-  color: #61dafb;
+  color: #18e9df;
 }

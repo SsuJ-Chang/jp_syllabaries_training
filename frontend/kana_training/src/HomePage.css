@@ -30,7 +30,7 @@
   display: block;
   margin: 10px;
   padding: 10px;
-  background-color: #0d756d;
+  background-color: rgb(20, 90, 80);
   color: rgb(200, 200, 200);
   text-decoration: none;
   border-radius: 5px;
@@ -40,7 +40,7 @@
 }
 
 .option:hover {
-  background-color: #10a89b;
+  background-color: rgb(30, 180, 160);
   color: rgb(255, 255, 255);
 }
 
@@ -50,5 +50,5 @@
   text-align: center;
   width: 100%;
   font-size: 18px;
-  color: #61dafb;
+  color: rgb(30, 180, 160);
 }
