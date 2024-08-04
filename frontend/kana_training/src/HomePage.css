@@ -12,8 +12,7 @@
 .kana-options {
   display: flex;
   justify-content: space-around;
-  width: 600px;
-  margin-top: 20px;
+  width: 400px;
 }
 
 .kana-section {
@@ -23,7 +22,7 @@
 }
 
 .all-kana-section {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .option {
@@ -45,7 +44,7 @@
 }
 
 .visit-record-home {
-   position: fixed;
+  position: fixed;
   bottom: 10px;
   text-align: center;
   width: 100%;
