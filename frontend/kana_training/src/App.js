@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
+import Header from './Header';
 import HomePage from "./HomePage";
 import KanaPage from "./KanaPage";
 
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/hiragana/seion" element={<KanaPage kanaType="hiragana" category="seion" />} />
