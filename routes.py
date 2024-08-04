@@ -21,7 +21,6 @@ async def update_visit_record(page_name: str):
 @router.get("/api/visit_records/{page_name}")
 async def get_visit_record(page_name: str):
     collection = get_visit_records_collection()
-    print(collection)
     record = collection.find_one({}, {page_name: 1, "_id": 0})
     if page_name in record:
         return {page_name: record[page_name]}
