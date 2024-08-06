@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
 import "./KanaPage.css";
 import Cookies from 'js-cookie';
@@ -14,7 +14,7 @@ const KanaPage = ({ kanaType, category }) => {
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const hasFetched = useRef(false);
 
-  const fetchKanaAndRecordVisit = async (updateVisit = false) => {
+  const fetchKanaAndRecordVisit = useCallback(async (updateVisit = false) => {
     const pageName = `${kanaType}_${category}`;
     try {
       if (updateVisit) {
@@ -46,14 +46,14 @@ const KanaPage = ({ kanaType, category }) => {
     } catch (error) {
       console.error("Error: ", error);
     }
-  };
+  }, [kanaType, category, apiBaseUrl]);
 
   useEffect(() => {
     if (!hasFetched.current) {
       fetchKanaAndRecordVisit(true);
       hasFetched.current = true;
     }
-  }, [kanaType, category, apiBaseUrl]);
+  }, [fetchKanaAndRecordVisit]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -118,7 +118,7 @@ const KanaPage = ({ kanaType, category }) => {
                 placeholder="輸入羅馬拼音"
                 autocomplete="off"
               />
-              <div  className="submit-btn-container"><button className="btn submit-btn" type="submit">送出</button></div>
+              <div className="submit-btn-container"><button className="btn submit-btn" type="submit">送出</button></div>
             </>
           )}
         </form>
