@@ -57,6 +57,10 @@ const KanaPage = ({ kanaType, category }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!inputValue.trim()) {
+      alert("請輸入羅馬拼音")
+      return;
+    }
     if (inputValue.toLowerCase() === romaji.toLowerCase()) {
       setIsCorrect(true);
       setCorrectStreak(correctStreak + 1);
@@ -102,7 +106,7 @@ const KanaPage = ({ kanaType, category }) => {
         <div id="kana">{kana ? `${kana}` : "載入中..."}</div>
         {isCorrect === false && (
           <div>
-            <p id="error-msg">發音錯誤！你輸入「{errorInput}」，正確發音為「{romaji}」</p>
+            <p id="error-msg">發音錯誤！<br/>你輸入「{errorInput}」，正確發音為「{romaji}」</p>
           </div>
         )}
         <form onSubmit={handleSubmit}>
