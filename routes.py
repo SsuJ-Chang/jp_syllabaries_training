@@ -53,11 +53,10 @@ async def get_kana_by_kana_type_and_category(kana_type: str, category: str = "al
     return await get_kana(kana_type, category)
 
 # 全部假名 API
-@router.get("/api/{kana_type}/all", response_model=Kana)
-async def get_all_kana(kana_type: str):
+@router.get("/api/all_kanas", response_model=Kana)
+async def get_all_kana():
     collection = get_kana_collection()
     pipeline = [
-        {"$match": {"kana_type": kana_type}},
         {"$sample": {"size": 1}}
     ]
     cursor = collection.aggregate(pipeline)
