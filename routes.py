@@ -4,6 +4,7 @@ from db import get_kana_collection, get_visit_records_collection
 from pymongo import ReturnDocument
 from bson.json_util import dumps
 import random
+from text_to_speech import get_speech_url
 
 router = APIRouter()
 
@@ -65,3 +66,12 @@ async def get_all_kana():
         return Kana(**result)
     else:
         raise HTTPException(status_code=404, detail="Kana not found")
+
+# 取得 Text-to-Speech API 的發音
+@router.get("/api/text_to_speech/")
+async def text_to_speech(text: str):
+    try:
+        audio_url = get_speech_url(text)
+        return {"audio_url": audio_url}
+    except HTTPException as e:
+        raise e
