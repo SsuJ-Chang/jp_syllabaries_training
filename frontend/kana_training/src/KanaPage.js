@@ -11,6 +11,7 @@ const KanaPage = ({ kanaType, category }) => {
   const [errorInput, setErrorInput] = useState("");
   const [visitCount, setVisitCount] = useState(0);
   const [correctStreak, setCorrectStreak] = useState(0);
+  const [audioUrl, setAudioUrl] = useState(null); // 新增狀態來存放音頻 URL
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const hasFetched = useRef(false);
 
@@ -43,6 +44,7 @@ const KanaPage = ({ kanaType, category }) => {
       setInputValue("");
       setIsCorrect(null);
       setErrorInput("");
+      setAudioUrl(null);
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -55,7 +57,7 @@ const KanaPage = ({ kanaType, category }) => {
     }
   }, [fetchKanaAndRecordVisit]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!inputValue.trim()) {
       alert("請輸入羅馬拼音")
@@ -69,6 +71,18 @@ const KanaPage = ({ kanaType, category }) => {
       setIsCorrect(false);
       setCorrectStreak(0);
       setErrorInput(inputValue);
+
+      // 在答錯時請求音頻 URL
+      try {
+        const response = await axios.get(
+          `${apiBaseUrl}/api/text_to_speech/`,
+          { params: { text: kana },}
+        );
+        console.log("Fetched audio URL:", response.data.audio_url);
+        setAudioUrl(response.data.audio_url);
+      } catch (error) {
+        console.error("Failed to fetch audio URL", error);
+      }
     }
   };
 
@@ -106,7 +120,15 @@ const KanaPage = ({ kanaType, category }) => {
         <div id="kana">{kana ? `${kana}` : "載入中..."}</div>
         {isCorrect === false && (
           <div>
-            <p id="error-msg">發音錯誤！<br/>你輸入「{errorInput}」，正確發音為「{romaji}」</p>
+            <p id="error-msg">
+              發音錯誤！<br/>
+              你輸入「{errorInput}」，正確發音為「{romaji}」<br/>
+              {audioUrl && (
+                <button onClick={() => new Audio(audioUrl).play()} className="audio-btn">
+                  （點此聽發音）
+                </button>
+              )}
+            </p>
           </div>
         )}
         <form onSubmit={handleSubmit}>

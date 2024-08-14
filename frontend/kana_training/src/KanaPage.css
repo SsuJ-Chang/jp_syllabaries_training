@@ -82,3 +82,15 @@
   font-size: 18px;
   color: #18e9df;
 }
+
+.audio-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #84281a;
+}
+
+.audio-btn:hover {
+  color: rgb(200, 60, 50);
+}
