@@ -1,13 +1,13 @@
-name: Test SSH Connection
+name: Deploy to EC2 jp_syllabaries_training
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # 允許手動觸發
+  workflow_dispatch:
 
 jobs:
-  test-ssh:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +19,14 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-    - name: Test SSH connection
-      run: ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'echo "SSH connection successful!"'
+    - name: Deploy to EC2
+      env:
+        HOST: ${{ secrets.EC2_HOST }}
+        USERNAME: ${{ secrets.EC2_USER }}
+      run: |
+        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << 'EOF'
+          cd jp_syllabaries_training
+          git pull origin main
+          docker-compose down
+          docker-compose up --build -d
+        EOF
