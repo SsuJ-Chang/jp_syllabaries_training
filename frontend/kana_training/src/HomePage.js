@@ -17,8 +17,8 @@ const HomePage = () => {
         if (!visited) {
           const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/visit_records/home`);
           setVisitRecord(response.data.home);
-          // 設定 Cookie 1 小時內同一瀏覽器無法重複累積造訪次數
-          Cookies.set(visitKey, 'true', { expires: 1 / 24 });
+          // 設定 Cookie 1 天內同一瀏覽器無法重複累積造訪次數
+          Cookies.set(visitKey, 'true', { expires: 24 / 24 });
         } else {
           const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/visit_records/home`);
           setVisitRecord(response.data.home);
