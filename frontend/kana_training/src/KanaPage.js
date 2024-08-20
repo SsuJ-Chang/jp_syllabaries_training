@@ -3,6 +3,7 @@ import { fetchKanasAndCacheInSession, getRandomKana } from "./kanaUtils";
 import axios from "axios";
 import "./KanaPage.css";
 import Cookies from 'js-cookie';
+import titles from './kanePageTitles';
 
 const KanaPage = ({ kanaType, category }) => {
   const [kana, setKana] = useState("");
@@ -91,24 +92,6 @@ const KanaPage = ({ kanaType, category }) => {
 
   const handleContinue = () => {
     handleKana(kanas)
-  };
-
-  const titles = {
-    hiragana: {
-      seion: "平假名 - 清音",
-      youon: "平假名 - 拗音",
-      dakuon_handaon: "平假名 - 濁音與半濁音",
-      all: "平假名 - 全部"
-    },
-    katakana: {
-      seion: "片假名 - 清音",
-      youon: "片假名 - 拗音",
-      dakuon_handaon: "片假名 - 濁音與半濁音",
-      all: "片假名 - 全部"
-    },
-    all_kanas: {
-      all: "全部 50 音"
-    }
   };
 
   const getTitle = () => {
