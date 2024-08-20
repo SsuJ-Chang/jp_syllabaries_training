@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { fetchKanasAndCacheInSession, getRandomKana } from "./kanaUtils";
 import axios from "axios";
 import "./KanaPage.css";
 import Cookies from 'js-cookie';
 
 const KanaPage = ({ kanaType, category }) => {
   const [kana, setKana] = useState("");
+  const [kanas, setKanas] = useState([]);
   const [romaji, setRomaji] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [isCorrect, setIsCorrect] = useState(null);
@@ -14,6 +16,16 @@ const KanaPage = ({ kanaType, category }) => {
   const [audioUrl, setAudioUrl] = useState(null); // 新增狀態來存放音頻 URL
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const hasFetched = useRef(false);
+
+  const handleKana = (kanas) => {
+    const randomKana = getRandomKana(kanas);
+    setKana(randomKana.kana);
+    setRomaji(randomKana.romaji);
+    setInputValue("");
+    setIsCorrect(null);
+    setErrorInput("");
+    setAudioUrl(null);
+  };
 
   const fetchKanaAndRecordVisit = useCallback(async (updateVisit = false) => {
     const pageName = `${kanaType}_${category}`;
@@ -25,26 +37,17 @@ const KanaPage = ({ kanaType, category }) => {
         if (!visited) {
           const visitResponse = await axios.post(`${apiBaseUrl}/api/visit_records/${pageName}`);
           setVisitCount(visitResponse.data[pageName]);
-          // 設定 Cookie 1 小時內同一瀏覽器無法重複累積造訪次數
-          Cookies.set(visitKey, 'true', { expires: 1 / 24 });
+          // 設定 Cookie 1 天內同一瀏覽器無法重複累積造訪次數
+          Cookies.set(visitKey, 'true', { expires: 24 / 24 });
         } else {
           const visitResponse = await axios.get(`${apiBaseUrl}/api/visit_records/${pageName}`);
           setVisitCount(visitResponse.data[pageName]);
         }
       }
 
-      const kanaResponse = await axios.get(
-        kanaType === "all_kanas"
-          ? `${apiBaseUrl}/api/all_kanas`
-          : `${apiBaseUrl}/api/${kanaType}/${category}`
-      );
-      const { kana, romaji } = kanaResponse.data;
-      setKana(kana);
-      setRomaji(romaji);
-      setInputValue("");
-      setIsCorrect(null);
-      setErrorInput("");
-      setAudioUrl(null);
+      const loadedKanas = await fetchKanasAndCacheInSession(kanaType, category, apiBaseUrl);
+      setKanas(loadedKanas);
+      handleKana(loadedKanas)
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -66,7 +69,7 @@ const KanaPage = ({ kanaType, category }) => {
     if (inputValue.toLowerCase() === romaji.toLowerCase()) {
       setIsCorrect(true);
       setCorrectStreak(correctStreak + 1);
-      fetchKanaAndRecordVisit();
+      handleKana(kanas)
     } else {
       setIsCorrect(false);
       setCorrectStreak(0);
@@ -87,7 +90,7 @@ const KanaPage = ({ kanaType, category }) => {
   };
 
   const handleContinue = () => {
-    fetchKanaAndRecordVisit();
+    handleKana(kanas)
   };
 
   const titles = {

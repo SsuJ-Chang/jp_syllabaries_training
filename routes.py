@@ -28,7 +28,7 @@ async def get_visit_record(page_name: str):
     else:
         raise HTTPException(status_code=404, detail="Visit record not found")
 
-# 通用的函數來取得假名
+# 通用的函數來取得 1 個隨機假名
 async def get_kana(kana_type: str, category: str):
     collection = get_kana_collection()
     if category == "all":
@@ -48,24 +48,61 @@ async def get_kana(kana_type: str, category: str):
     else:
         raise HTTPException(status_code=404, detail="Kana not found")
 
-# 分類練習 API
-@router.get("/api/{kana_type}/{category}", response_model=Kana)
-async def get_kana_by_kana_type_and_category(kana_type: str, category: str = "all"):
-    return await get_kana(kana_type, category)
+# 通用的函數來取得全部假名
+async def get_kanas(kana_type: str, category: str):
+    collection = get_kana_collection()
+    if category == "all":
+        pipeline = [
+            {"$match": {"kana_type": kana_type}}
+        ]
+    else:
+        pipeline = [
+            {"$match": {"kana_type": kana_type, "category": category}}
+        ]
+    cursor = collection.aggregate(pipeline)
+    results = list(cursor)
+    if results:
+        return [Kana(**result) for result in results]
+    else:
+        raise HTTPException(status_code=404, detail="Kanas not found")
 
-# 全部假名 API
-@router.get("/api/all_kanas", response_model=Kana)
-async def get_all_kana():
+# 分類練習 API 隨機取得 1 個分類假名
+# @router.get("/api/{kana_type}/{category}", response_model=Kana)
+# async def get_kana_by_kana_type_and_category(kana_type: str, category: str = "all"):
+#     return await get_kana(kana_type, category)
+
+# 分類練習 API 一次取得分類全部假名
+@router.get("/api/{kana_type}/{category}", response_model=list[Kana])
+async def get_kanas_by_type_and_category(kana_type: str, category: str = "all"):
+    return await get_kanas(kana_type, category)
+
+# 全部假名 API 取得 1 個隨機假名
+# @router.get("/api/all_kanas", response_model=Kana)
+# async def get_all_kana():
+#     collection = get_kana_collection()
+#     pipeline = [
+#         {"$sample": {"size": 1}}
+#     ]
+#     cursor = collection.aggregate(pipeline)
+#     result = next(cursor, None)
+#     if result:
+#         return Kana(**result)
+#     else:
+#         raise HTTPException(status_code=404, detail="Kana not found")
+
+# 不分類型一次取得全部假名
+@router.get("/api/all_kanas", response_model=list[Kana])
+async def get_all_kanas():
     collection = get_kana_collection()
     pipeline = [
-        {"$sample": {"size": 1}}
+        {"$match": {}}
     ]
     cursor = collection.aggregate(pipeline)
-    result = next(cursor, None)
-    if result:
-        return Kana(**result)
+    results = list(cursor)
+    if results:
+        return [Kana(**result) for result in results]
     else:
-        raise HTTPException(status_code=404, detail="Kana not found")
+        raise HTTPException(status_code=404, detail="Kanas not found")
 
 # 取得 Text-to-Speech API 的發音
 @router.get("/api/text_to_speech/")
