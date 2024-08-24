@@ -4,4 +4,4 @@ class Kana(BaseModel):
     kana_type: str
     category: str
     kana: str
-    romaji: str
+    romaji: list[str]

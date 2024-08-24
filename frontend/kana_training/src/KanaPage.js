@@ -20,6 +20,7 @@ const KanaPage = ({ kanaType, category }) => {
 
   const handleKana = (kanas) => {
     const randomKana = getRandomKana(kanas);
+    console.log("randomKana", randomKana)
     setKana(randomKana.kana);
     setRomaji(randomKana.romaji);
     setInputValue("");
@@ -67,7 +68,9 @@ const KanaPage = ({ kanaType, category }) => {
       alert("請輸入羅馬拼音")
       return;
     }
-    if (inputValue.toLowerCase() === romaji.toLowerCase()) {
+    const formatedInput = inputValue.toLowerCase();
+    const isCorrectAnswer = romaji.includes(formatedInput);
+    if (isCorrectAnswer) {
       setIsCorrect(true);
       setCorrectStreak(correctStreak + 1);
       handleKana(kanas)
@@ -108,7 +111,7 @@ const KanaPage = ({ kanaType, category }) => {
           <div>
             <p id="error-msg">
               發音錯誤！<br/>
-              你輸入「{errorInput}」，正確發音為「{romaji}」<br/>
+              你輸入「{errorInput}」，正確發音為「{romaji.join(" 或 ")}」<br/>
               {audioUrl && (
                 <button onClick={() => new Audio(audioUrl).play()} className="audio-btn">
                   （點此聽發音）
