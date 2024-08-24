@@ -25,7 +25,7 @@ const fetchKanasAndCacheInSession = async (kanaType, category, apiBaseUrl) => {
 };
 
 const recentIndexes = [];
-const MAX_RECENT_INDEXES = 7;
+const MAX_RECENT_INDEXES = 16;
 const getRandomKana = (kanas) => {
   // 紀錄 index 避免短時間內重複
   let index;
@@ -33,7 +33,6 @@ const getRandomKana = (kanas) => {
     index = Math.floor(Math.random() * kanas.length);
   } while (recentIndexes.includes(index));
   recentIndexes.push(index);
-  console.log("recentIndexes: ", recentIndexes)
   if (recentIndexes.length > MAX_RECENT_INDEXES) {
     recentIndexes.shift();
   }
