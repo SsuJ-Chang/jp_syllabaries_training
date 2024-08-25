@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Header from './Header';
+import Footer from './Footer';
 import HomePage from "./HomePage";
 import KanaPage from "./KanaPage";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/all_kanas" element={<KanaPage kanaType="all_kanas" category="all" />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

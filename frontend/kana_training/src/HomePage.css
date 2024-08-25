@@ -22,7 +22,7 @@
 }
 
 .all-kana-section {
-  margin-top: 10px;
+  margin: 10px 0 30px 0;
 }
 
 .option {
@@ -44,8 +44,6 @@
 }
 
 .visit-record-home {
-  position: fixed;
-  bottom: 10px;
   text-align: center;
   width: 100%;
   font-size: 18px;
