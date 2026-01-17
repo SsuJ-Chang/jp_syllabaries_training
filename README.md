@@ -1,4 +1,4 @@
-# Japanese Kana Training (日文五十音練習)
+# Japanese Kana Training
 
 > **A Free, Interactive Japanese Kana Learning Tool**
 
