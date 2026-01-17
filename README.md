@@ -1,42 +1,51 @@
 # Japanese Kana Training (日文五十音練習)
 
-An interactive web application for learning Japanese Hiragana and Katakana characters through romaji practice.
+> **A Free, Interactive Japanese Kana Learning Tool**
 
-> 🇹🇼 [繁體中文版](#繁體中文)
+[繁體中文](./README.zh-TW.md) | English
 
-## 🌐 Live Demo
-
-**[jp50.rj-tw.com](https://jp50.rj-tw.com)**
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://jp50.rj-tw.com)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## ✨ Features
 
-- **Hiragana Practice** - Seion (清音), Dakuon/Handakuon (濁音/半濁音), Youon (拗音)
-- **Katakana Practice** - Seion, Dakuon/Handakuon, Youon
-- **Full 50-on Practice** - Mixed practice with all kana
-- **Streak Counter** - Track your learning progress
-- **Smart Random** - Avoids repeating recent characters
+- 🎯 **Hiragana & Katakana** - Practice all basic Japanese syllabaries
+- 📊 **Streak Counter** - Track your learning progress
+- 🎲 **Smart Random** - Avoids repeating recent characters
+- 🎨 **Modern UI** - Clean, dark-mode-first interface
+- 📱 **Fully Responsive** - Works on desktop, tablet, and mobile
+- 🌐 **No Registration** - Use immediately without sign-up
+
+## 🎯 Practice Modes
+
+| Type | Categories | Status |
+|------|-----------|--------|
+| Hiragana | Seion, Dakuon/Handakuon, Youon, All | ✅ |
+| Katakana | Seion, Dakuon/Handakuon, Youon, All | ✅ |
+| Full 50-on | All Kana Combined | ✅ |
 
 ## 🛠️ Tech Stack
 
-- **React 18** - Frontend framework
-- **React Router (Hash)** - Routing
-- **GitHub Pages** - Static hosting
-- **GitHub Actions** - CI/CD
+- **React 18** with Hooks
+- **React Router v6** (HashRouter)
+- **GitHub Pages** for hosting
+- **GitHub Actions** for CI/CD
 
-## 📁 Project Structure
+## 🏗️ Project Structure
 
 ```
-├── public/          # Static assets
-│   ├── CNAME        # Custom domain config
-│   └── index.html   # HTML entry
+jp_syllabaries_training/
+├── public/              # Static assets
+│   ├── CNAME           # Custom domain config
+│   └── index.html      # HTML entry
 ├── src/
-│   ├── data/        # Kana data (JSON)
-│   ├── App.js       # Main app
-│   ├── HomePage.js  # Home page
-│   ├── KanaPage.js  # Practice page
-│   └── kanaUtils.js # Data utilities
+│   ├── data/           # Kana data (JSON)
+│   ├── App.js          # Main app with routing
+│   ├── HomePage.js     # Home page
+│   ├── KanaPage.js     # Practice page
+│   └── kanaUtils.js    # Data utilities
 └── .github/
-    └── workflows/   # GitHub Actions deployment
+    └── workflows/      # GitHub Actions deployment
 ```
 
 ## 🚀 Local Development
@@ -55,51 +64,20 @@ npm run build
 npx serve -s build
 ```
 
-## 📝 License
+## 📄 License
 
-MIT License
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ by [RJ Chang](https://github.com/SsuJ-Chang)
+- Powered by React and open-source technologies
+
+## 📧 Contact
+
+- Website: [jp50.rj-tw.com](https://jp50.rj-tw.com)
+- GitHub: [@SsuJ-Chang](https://github.com/SsuJ-Chang)
 
 ---
 
-# 繁體中文
-
-互動式日文假名學習網站，透過羅馬拼音練習幫助使用者學習平假名和片假名。
-
-## 🌐 線上版本
-
-**[jp50.rj-tw.com](https://jp50.rj-tw.com)**
-
-## ✨ 功能
-
-- **平假名練習** - 清音、濁音/半濁音、拗音
-- **片假名練習** - 清音、濁音/半濁音、拗音
-- **全部 50 音練習** - 混合練習所有假名
-- **連續答對計數** - 追蹤學習進度
-- **智慧隨機** - 避免短時間內重複出題
-
-## 🛠️ 技術架構
-
-- **React 18** - 前端框架
-- **React Router (Hash)** - 路由管理
-- **GitHub Pages** - 靜態網站託管
-- **GitHub Actions** - 自動化部署
-
-## 🚀 本地開發
-
-```bash
-# 安裝依賴
-npm install
-
-# 啟動開發伺服器
-npm start
-
-# 建置生產版本
-npm run build
-
-# 本地測試生產版本
-npx serve -s build
-```
-
-## 📝 授權
-
-MIT License
+**⭐ If you find this project useful, please consider giving it a star!**
