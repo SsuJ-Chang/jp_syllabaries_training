@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <header className="header" onClick={handleLogoClick}>
       <div className="logo">
-        <img src="/RJ_CI.png" alt="Logo" />
+        <img src="/logo.png" alt="Logo" />
         <span className="title">50 音練習</span>
       </div>
     </header>
