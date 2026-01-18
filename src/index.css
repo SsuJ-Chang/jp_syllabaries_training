@@ -1,13 +1,53 @@
-body {
+/* ===== CSS Variables - Morandi Turquoise Theme ===== */
+:root {
+  /* Background Colors */
+  --color-bg-primary: #0f171a;
+  --color-bg-secondary: #162124;
+  --color-bg-tertiary: #1e2b2e;
+
+  /* Text Colors */
+  --color-text-primary: #e0e6e6;
+  --color-text-secondary: #9db0b0;
+  --color-text-muted: #6b7d7d;
+
+  /* Accent Colors - Morandi Turquoise */
+  --color-accent-primary: #5e8c8a;
+  --color-accent-secondary: #87adaa;
+  --color-accent-tertiary: #a5c1be;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #5e8c8a 0%, #87adaa 50%, #a5c1be 100%);
+
+  /* Error Color */
+  --color-error: #c75050;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* ===== Base Styles ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
